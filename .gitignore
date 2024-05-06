@@ -1,0 +1,5 @@
+images/*
+__pycache__
+photos.db
+user data/*
+vectors/*
