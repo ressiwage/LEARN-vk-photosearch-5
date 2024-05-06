@@ -38,7 +38,7 @@ if __name__ == "__main__":
         urls = []
         for url in get_links():
             urls.append(url[0])
-        asyncio.run(download_all(urls, list(range(len(urls)))), T_D_PATH)
+        asyncio.run(download_all(urls, list(range(len(urls))), T_D_PATH),)
     elif index == 2:
         new_dir = U_D_PATH+input("input name of a directory for saving photos: ").strip() + "/"
 

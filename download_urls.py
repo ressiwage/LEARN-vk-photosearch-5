@@ -1,10 +1,13 @@
-from config import token, headers
+from config import token, headers, interactive
 import requests as r
 import asyncio
 import aiohttp  # pip install aiohttp aiodns
-from pick import pick
 from db import *
-
+from config import interactive
+if interactive:
+    from pick import pick
+else:
+    from pick_substitution import pick
 
 async def post(*args, **kwargs) -> dict:
     # session: aiohttp.ClientSession

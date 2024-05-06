@@ -49,7 +49,6 @@ def find(sentence, n):
         print(os.getcwd() + "/user data/" + records[i][0])
         print(records[i][1])
 
-save()
-find("old man guitar", 10)
+
 # print(a.get_nns_by_item(0, 100))
 # print(a.get_nns_by_vector([1.0, 0.5, 0.5], 100))

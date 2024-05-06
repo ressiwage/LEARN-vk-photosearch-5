@@ -7,3 +7,7 @@ spacy
 ~~~bash
 python -m spacy download en_core_web_lg
 ~~~
+
+pick aiohttp aiodns aiofiles annoy
+
+stealed it -- file for bash in colab
