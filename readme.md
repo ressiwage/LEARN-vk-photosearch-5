@@ -1,20 +1,17 @@
-kate link:
-~~~
-https://id.vk.com/auth?return_auth_hash=82588d0edf0a355bcc&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&redirect_uri_hash=aa925dbe63505d5be3&force_hash=1&app_id=2685278&response_type=token&code_challenge=&code_challenge_method=&scope=1040183263&state=
-~~~
+# использование
+1. перейдите по ссылке https://id.vk.com/auth?return_auth_hash=82588d0edf0a355bcc&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&redirect_uri_hash=aa925dbe63505d5be3&force_hash=1&app_id=2685278&response_type=token&code_challenge=&code_challenge_method=&scope=1040183263&state= и скопируйте токен (&token=<u>...</u>&expires_in) в config.py
+2. pip install -r requirements.txt
+3. python -m spacy download en_core_web_lg
+4. pytnon main.py
+5. сначала скачайте ссылки на файлы (1 опция), затем сами файлы (2 опция), после этого разметьте их (3 опция) и проиндексируйте (4 опция). только после этого можно совершать поиск
 
-spacy
-~~~bash
-python -m spacy download en_core_web_lg
-~~~
+для разметки ***крайне желательно*** иметь gpu лучше gtx 1050
 
-pick aiohttp aiodns aiofiles annoy
+## смена модели разметки
+для смены модели разметки в модуле mark_image замените chosen_marker на свой, с теми же атрибутами и методами
 
-stealed it -- file for bash in colab
+# использование в колабе
+сохраните репозиторий как архив, загрузите в текущую директорию в колабе, скопируйте ноутбук colab.ipynb в ту же директорию и запустите первую ячейку. затем добавьте в config.py токен и смените interactive на False.
 
-1. pip install -r requirements.txt
-2. python -m spacy download en_core_web_lg
-3. python main.py
+чтобы результат сохранился синхронизируйтесь с гдиском
 
-# colab usage
-сохраните репозиторий как архив, загрузите в текущую директорию в колабе, скопируйте ноутбук %%%% в ту же директорию и запустите первую ячейку. затем добавьте в config.py токен и смените interactive на False

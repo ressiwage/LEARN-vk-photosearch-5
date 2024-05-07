@@ -1,8 +1,8 @@
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from annoy import AnnoyIndex
+from db import *
 import spacy, sys, os
 import numpy as np
-from db import *
-from annoy import AnnoyIndex
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 
 enum = enumerate
 PATH = "vectors/"
@@ -45,11 +45,12 @@ def find(sentence, n):
         if i in col_words:
             new_vector[col_words.index(i)] = vectorized[ind]
     found = vector_database.get_nns_by_vector(new_vector, n)
+    results = []
     for i in found:
-        print(os.getcwd() + "/user data/" + records[i][0])
-        print(records[i][1])
+        results.append(records[i])
+    return results
 
 # save()
-find("student girl", 20)
+# find("student girl", 20)
 # print(a.get_nns_by_item(0, 100))
 # print(a.get_nns_by_vector([1.0, 0.5, 0.5], 100))

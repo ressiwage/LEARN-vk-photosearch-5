@@ -1,20 +1,21 @@
 import requests as r
 import asyncio
-import aiohttp  # pip install aiohttp aiodns
+import aiohttp 
 import shutil
 import time
 import json
 import os
 from db import *
+from PIL import Image
 from os import listdir
-from config import token, interactive
-from mark_image import Marker
 from os.path import isfile, join
 from datetime import datetime as d
+from mark_image import chosen_marker
+from config import token, interactive
 from download_urls import download_links
 from download_photos import download_all
 from distutils.dir_util import copy_tree
-from find_image import save as save_vectors
+from find_image import save as save_vectors, find as find_image
 if interactive:
     from pick import pick
 else:
@@ -52,12 +53,15 @@ if __name__ == "__main__":
             )
         os.makedirs(new_dir)
 
-        marker = Marker()
+        marker = chosen_marker
+         
         onlyfiles = [f for f in listdir(T_D_PATH) if isfile(join(T_D_PATH, f))]
         offset = min(int(input("enter offset (0 default)")), len(onlyfiles))
         descibed_files = [i[1] for i in get_descs()]
         result = []
+        print("copying photos...")
         copy_tree(T_D_PATH, new_dir)
+        print("done")
         start = time.time()
         skip = True
         for ind, fname in enumerate(onlyfiles):
@@ -67,17 +71,33 @@ if __name__ == "__main__":
                 continue
             try:
                 description = marker.process(new_fname)
-            except:
+            except Exception as e:
+                print(e)
                 print("error describing ", new_fname)
                 description = "ERROR"
             # print(fname, description, ind, sep="|")
             result.append({"desc": description, "fname": new_fname})
-            if (ind % (len(onlyfiles) // 10) == 0 or ind == len(onlyfiles) - 1) and ind != 0:
+            if (ind % (len(onlyfiles) // 50) == 0 or ind == len(onlyfiles) - 1) and ind != 0:
                 save_desc(result)
                 result = []
                 print(
-                    f"{d.now()}:{round(ind* 100/len(onlyfiles), 2) }%...\nestimated time: {int( ((time.time()-start)*len(onlyfiles)/ind - (time.time()-start))/60 ) } min\ntime passed: {round((time.time()-start)/60, 2)}\n"
+                    f"{d.now()}:\n{round(ind* 100/len(onlyfiles), 2) }%...\nestimated time: {int( ((time.time()-start)*len(onlyfiles)/ind - (time.time()-start))/60 ) } min\ntime passed: {round((time.time()-start)/60, 2)}min\n"
                 )
-        print(result)
+        print(f"time passed: {int(time.time()-start)/60}min")
     elif index == 3:
         save_vectors()
+    elif index==4:
+        for i in find_image(input('enter your description '), int(input('enter amount of returned photos '))):
+            image = Image.open(i[0])
+            image.show()
+            print('fpath: ', '"'+os.getcwd() + '/' +  i[0]+'"', 'description: ', i[1], sep='\n')
+    elif index==5:
+        if input('Данная опция удалит ВСЕ пользовательский файлы. для того, чтобы продолжить, введите фразу: "Я хОчУ уДаЛиТь ВсЕ ПоЛьЗоВаТеЛьСкИе ФаЙлЫ" с сохранением регистра')=='Я хОчУ уДаЛиТь ВсЕ ПоЛьЗоВаТеЛьСкИе ФаЙлЫ ':
+            for p in [T_D_PATH, 'vectors/', U_D_PATH]:
+                if os.path.exists(p):
+                    shutil.rmtree(p)
+                os.makedirs(p)
+            create()
+            trunc_descs()
+    else:
+        pass
