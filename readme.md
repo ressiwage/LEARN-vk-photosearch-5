@@ -16,3 +16,12 @@
 
 чтобы результат сохранился синхронизируйтесь с гдиском
 
+### пример поиска по моим сохранённым фотографиям
+
+![img1](examples/scr1.jpg)
+
+![img2](examples/scr2.jpg)
+
+![img3](examples/scr3.jpg)
+
+![img4](examples/scr4.jpg)
