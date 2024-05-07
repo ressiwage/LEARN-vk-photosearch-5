@@ -1,3 +1,13 @@
+# vk-photosearch
+#### для чего нужен этот проект?
+я создал этот проект для быстрого поиска по десяткам тысяч фотографий в своём альбоме вк.
+
+#### как он работает?
+он скачивает фотографии из альбома вк (с помощью asyncio, aiohttp), затем размечает их с помощью модели blip (до этого была microsoft/git, но она плохо справлялась), после этого трансформирует данные в вектора bag of words и помещает в хранилище annoy, после чего ищет по минимальному расстоянию до ближайшего вектора
+
+#### стек
+aiohttp, asyncio, torch, transformers, request, annoy
+
 # использование
 1. перейдите по ссылке https://id.vk.com/auth?return_auth_hash=82588d0edf0a355bcc&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&redirect_uri_hash=aa925dbe63505d5be3&force_hash=1&app_id=2685278&response_type=token&code_challenge=&code_challenge_method=&scope=1040183263&state= и скопируйте токен (он между &token= и &expires_in) в config.py
 2. установите куду (>12.1)
