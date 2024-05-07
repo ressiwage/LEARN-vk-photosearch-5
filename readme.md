@@ -11,3 +11,10 @@ python -m spacy download en_core_web_lg
 pick aiohttp aiodns aiofiles annoy
 
 stealed it -- file for bash in colab
+
+1. pip install -r requirements.txt
+2. python -m spacy download en_core_web_lg
+3. python main.py
+
+# colab usage
+сохраните репозиторий как архив, загрузите в текущую директорию в колабе, скопируйте ноутбук %%%% в ту же директорию и запустите первую ячейку. затем добавьте в config.py токен и смените interactive на False

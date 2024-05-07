@@ -25,7 +25,7 @@ T_D_PATH = 'images/'
 
 if __name__ == "__main__":
     title = "Select option (arrows im cmd, J/K in vs code, if doesn't work then you are on cyrillic)"
-    options = ["Скачать ссылки на фото", "Скачать фото", "Разметить фото", "Проиндексировать фото", "Поиск по описанию", "Помощь"]
+    options = ["Скачать ссылки на фото", "Скачать фото", "Разметить фото", "Проиндексировать фото", "Поиск по описанию", "Удалить пользовательские файлы", "Помощь"]
     option, index = pick(options, title, indicator="=>", default_index=0)
     if index == 0:
         asyncio_result = asyncio.run(download_links())
@@ -72,7 +72,7 @@ if __name__ == "__main__":
                 description = "ERROR"
             # print(fname, description, ind, sep="|")
             result.append({"desc": description, "fname": new_fname})
-            if (ind % 100 == 0 or ind == len(onlyfiles) - 1) and ind != 0:
+            if (ind % (len(onlyfiles) // 10) == 0 or ind == len(onlyfiles) - 1) and ind != 0:
                 save_desc(result)
                 result = []
                 print(
