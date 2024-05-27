@@ -9,12 +9,14 @@
 aiohttp, asyncio, torch, transformers, request, annoy
 
 # использование
-1. перейдите по ссылке https://id.vk.com/auth?return_auth_hash=82588d0edf0a355bcc&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&redirect_uri_hash=aa925dbe63505d5be3&force_hash=1&app_id=2685278&response_type=token&code_challenge=&code_challenge_method=&scope=1040183263&state= и скопируйте токен (он между &token= и &expires_in) в config.py
+1. перейдите по ссылке https://id.vk.com/auth?return_auth_hash=3707dd87600c243e08&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&redirect_uri_hash=3e5f5ede791cdc00d8&force_hash=1&app_id=2685278&response_type=token&code_challenge=&code_challenge_method=&scope=1040183263&state= и скопируйте токен (он между &token= и &expires_in) в config.py
 2. установите куду (>12.1)
 3. pip install -r requirements.txt
 4. python -m spacy download en_core_web_lg
 5. pytnon main.py
 6. сначала скачайте ссылки на файлы (1 опция), затем сами файлы (2 опция), после этого разметьте их (3 опция) и проиндексируйте (4 опция). только после этого можно совершать поиск
+
+***при поиске используйте en-us, а не en-uk, т.к. разметка ведётся в en-us***
 
 для разметки ***крайне желательно*** иметь gpu лучше gtx 1050
 
