@@ -37,3 +37,9 @@ aiohttp, asyncio, torch, transformers, request, annoy
 ![img3](examples/scr3.jpg)
 
 ![img4](examples/scr4.jpg)
+
+### роадмап
+- создать тг бота для быстрого поиска фотокарточек
+    - нужно: задание количества, текст
+- прикрутить эффекты cli
+- сделать распознавание текста (самое сложное)
