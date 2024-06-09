@@ -38,7 +38,7 @@ class BlipMarker(MarkerBase):
         out = self.model.generate(**inputs).to(device)
         return self.processor.decode(out[0], skip_special_tokens=True)
 
-chosen_marker = BlipMarker
+chosen_marker = BlipMarker()
 
 if __name__ == '__main__':
     Marker().process()

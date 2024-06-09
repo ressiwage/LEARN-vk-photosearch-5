@@ -1,10 +1,9 @@
-from config import token, headers, interactive
 import requests as r
 import asyncio
 import aiohttp  # pip install aiohttp aiodns
-from db import *
-from config import interactive
-if interactive:
+from .db import *
+from ._imports import config
+if config.interactive:
     from pick import pick
 else:
     from pick_substitution import pick
@@ -43,9 +42,9 @@ async def download_links():
     # get userid
     response = r.post(
         "https://api.vk.com/method/account.getProfileInfo",
-        headers=headers,
+        headers=config.headers,
         data={
-            "access_token": token,
+            "access_token": config.token,
             "v": "5.199",
         },
     )
@@ -53,11 +52,11 @@ async def download_links():
     # get available albums
     data = {
         "owner_id": user_id,
-        "access_token": token,
+        "access_token": config.token,
         "v": "5.199",
     }
     response = r.post(
-        "https://api.vk.com/method/photos.getAlbums", headers=headers, data=data
+        "https://api.vk.com/method/photos.getAlbums", headers=config.headers, data=data
     ).json()
     album_names = ["сохранённые"] + [i["title"] for i in response["response"]["items"]]
     album_ids = ["saved"] + [i["id"] for i in response["response"]["items"]]
@@ -69,14 +68,14 @@ async def download_links():
         "album_id": album_id,
         "rev": "1",
         "extended": "0",
-        "access_token": token,
+        "access_token": config.token,
         "v": "5.199",
         "offset": 0,
         "count": 1,
     }
 
     first_50_photos = r.post(
-        "https://api.vk.com/method/photos.get", headers=headers, data=data
+        "https://api.vk.com/method/photos.get", headers=config.headers, data=data
     )
     length = first_50_photos.json()["response"]["count"]
     limit = int(input(f'введите лимит фотографий. максимальное возможное значение: {length} '))
@@ -88,7 +87,7 @@ async def download_links():
             tasks.append(
                 post(
                     "https://api.vk.com/method/photos.get",
-                    headers=dict(headers),
+                    headers=dict(config.headers),
                     data=dict(data),
                     session=session,
                 )

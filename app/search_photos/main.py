@@ -5,24 +5,24 @@ import shutil
 import time
 import json
 import os
-from db import *
+from .db import *
 from PIL import Image
 from os import listdir
 from os.path import isfile, join
 from datetime import datetime as d
-from mark_image import chosen_marker
-from config import token, interactive
-from download_urls import download_links
-from download_photos import download_all
+from ._imports import config
+from .mark_image import chosen_marker
+from .download_urls import download_links
+from .download_photos import download_all
 from distutils.dir_util import copy_tree
-from find_image import save as save_vectors, find as find_image
-if interactive:
+from .find_image import save as save_vectors, find as find_image
+if config.interactive:
     from pick import pick
 else:
     from pick_substitution import pick
 
-U_D_PATH = 'user data/'
-T_D_PATH = 'images/'
+U_D_PATH = 'app/search_photos/user data/'
+T_D_PATH = 'app/search_photos/images/'
 
 if __name__ == "__main__":
     title = "Select option (arrows im cmd, J/K in vs code, if doesn't work then you are on cyrillic)"
@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 description = "ERROR"
             # print(fname, description, ind, sep="|")
             result.append({"desc": description, "fname": new_fname})
-            if (ind % (len(onlyfiles) // 50) == 0 or ind == len(onlyfiles) - 1) and ind != 0:
+            if ind>=len(onlyfiles)-1 or (len(onlyfiles) >50 and (ind % (len(onlyfiles) // 50) == 0 or ind == len(onlyfiles) - 1) and ind != 0):
                 save_desc(result)
                 result = []
                 print(

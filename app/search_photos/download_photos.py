@@ -2,7 +2,7 @@ import asyncio
 import aiohttp
 import aiofiles
 import socket
-from config import headers, timeout
+from ..config import headers, timeout
 
 async def download(url, idx, session, path):
     correct_idx = "{:06d}".format(idx)

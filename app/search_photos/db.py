@@ -1,7 +1,9 @@
 import sqlite3
 
+URL='app/search_photos/photos.db'
+
 def create():
-    with sqlite3.connect('photos.db') as connection:
+    with sqlite3.connect(URL) as connection:
         cursor = connection.cursor()
         with connection:
             cursor.execute('''
@@ -36,7 +38,7 @@ def create():
 
 
 def trunc_descs():
-    with sqlite3.connect('photos.db') as connection:
+    with sqlite3.connect(URL) as connection:
         cursor = connection.cursor()
         
         with connection:
@@ -54,14 +56,14 @@ def trunc_descs():
 def save_link(js):
     '''[{url:str, date:str}]'''
     sqltuples = [(i['url'], int(i['date'])) for i in js]
-    with sqlite3.connect('photos.db') as connection:
+    with sqlite3.connect(URL) as connection:
         cursor = connection.cursor()
         with connection:
             cursor.executemany('INSERT INTO photos (link, date) VALUES (?,?)', sqltuples)
 
 def get_links():
     '''->[(url),]'''
-    with sqlite3.connect('photos.db') as connection:
+    with sqlite3.connect(URL) as connection:
         cursor = connection.cursor()
         cursor.execute("SELECT link FROM photos ORDER BY date")
 
@@ -72,7 +74,7 @@ def get_links():
 def save_desc(js):
     '''[{fname:str, desc:str}]'''
     sqltuples = [(i['fname'], i['desc']) for i in js]
-    with sqlite3.connect('photos.db') as connection:
+    with sqlite3.connect(URL) as connection:
         cursor = connection.cursor()
         with connection:
             try:
@@ -81,7 +83,7 @@ def save_desc(js):
                 pass
 
 def get_descs():
-    with sqlite3.connect('photos.db') as connection:
+    with sqlite3.connect(URL) as connection:
         cursor = connection.cursor()
         cursor.execute("SELECT * FROM descriptions")
         rows = cursor.fetchall()

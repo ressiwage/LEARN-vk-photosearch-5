@@ -1,7 +1,7 @@
-images/*
+**/images/*
 __pycache__
-photos.db
-user data/*
-vectors/*
+**/photos.db
+**/user data/*
+**/vectors/*
 !.gitkeep
-config.py
+**/config.py

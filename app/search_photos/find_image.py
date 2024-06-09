@@ -1,12 +1,12 @@
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from annoy import AnnoyIndex
-from db import *
+from .db import *
 import spacy, sys, os
 import numpy as np
 
 enum = enumerate
-PATH = "vectors/"
-
+PATH = "app/search_photos/vectors/"
+PATH_TO_IMGS = "app/search_photos/"
 
 def __lemmatized_sentence(sentence, nlp):
     return " ".join([j.lemma_ for j in nlp(sentence) if j.pos_ != "PUNCT"])
@@ -47,7 +47,7 @@ def find(sentence, n):
     found = vector_database.get_nns_by_vector(new_vector, n)
     results = []
     for i in found:
-        results.append(records[i])
+        results.append((PATH_TO_IMGS+records[i][0], records[i][1]))
     return results
 
 # save()
