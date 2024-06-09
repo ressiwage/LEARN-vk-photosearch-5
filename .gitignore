@@ -4,3 +4,4 @@ photos.db
 user data/*
 vectors/*
 !.gitkeep
+config.py
