@@ -3,17 +3,17 @@
 я создал этот проект для быстрого поиска по десяткам тысяч фотографий в своём альбоме вк.
 
 #### как он работает?
-он скачивает фотографии из альбома вк (с помощью asyncio, aiohttp), затем размечает их с помощью модели blip (до этого была microsoft/git, но она плохо справлялась), после этого трансформирует данные в вектора bag of words и помещает в хранилище annoy, после чего ищет по минимальному расстоянию до ближайшего вектора
+он скачивает фотографии из альбома вк (с помощью asyncio, aiohttp), затем размечает их с помощью модели blip (до этого была microsoft/git, но она плохо справлялась), после этого трансформирует данные в вектора bag of words и помещает в хранилище annoy, после чего ищет по минимальному расстоянию до ближайшего вектора. при желании можно запустить телеграм бот, в котором будет доступен только поиск
 
 #### стек
-aiohttp, asyncio, torch, transformers, request, annoy
+aiohttp, asyncio, torch, transformers, request, annoy, pyTelegramBotAPI
 
 # использование
-1. перейдите по ссылке https://id.vk.com/auth?return_auth_hash=3707dd87600c243e08&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&redirect_uri_hash=3e5f5ede791cdc00d8&force_hash=1&app_id=2685278&response_type=token&code_challenge=&code_challenge_method=&scope=1040183263&state= и скопируйте токен (он между &token= и &expires_in) в config.py
+1. перейдите по ссылке https://id.vk.com/auth?return_auth_hash=3707dd87600c243e08&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&redirect_uri_hash=3e5f5ede791cdc00d8&force_hash=1&app_id=2685278&response_type=token&code_challenge=&code_challenge_method=&scope=1040183263&state= и скопируйте токен (он между &token= и &expires_in) в app/config_sample.py, затем переименуйте его в app/config.py 
 2. установите куду (>12.1)
 3. pip install -r requirements.txt
 4. python -m spacy download en_core_web_lg
-5. pytnon main.py
+5. python -m app.search_photos.main
 6. сначала скачайте ссылки на файлы (1 опция), затем сами файлы (2 опция), после этого разметьте их (3 опция) и проиндексируйте (4 опция). только после этого можно совершать поиск
 
 ***при поиске используйте en-us, а не en-uk, т.к. разметка ведётся в en-us***
@@ -28,6 +28,12 @@ aiohttp, asyncio, torch, transformers, request, annoy
 
 чтобы результат сохранился синхронизируйтесь с гдиском
 
+# использование телеграм бота
+1. выполните шаги из "использование"
+2. замените в app/config.py tg_token на токен бота и добавьте в allowed_ids ваш юзернейм (например, если ваш id -- @myid, то allowed_ids должен выглядеть как ['myid'])
+3. python -m app.tg_bot.main
+4. отправьте боту команду /search
+
 ### пример поиска по моим сохранённым фотографиям
 
 ![img1](examples/scr1.jpg)
@@ -39,7 +45,6 @@ aiohttp, asyncio, torch, transformers, request, annoy
 ![img4](examples/scr4.jpg)
 
 ### роадмап
-- создать тг бота для быстрого поиска фотокарточек
-    - нужно: задание количества, текст
+- ~~создать тг бота для быстрого поиска фотокарточек~~
 - прикрутить эффекты cli
 - сделать распознавание текста (самое сложное)
