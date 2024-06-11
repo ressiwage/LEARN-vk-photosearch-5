@@ -9,7 +9,7 @@
 aiohttp, asyncio, torch, transformers, request, annoy, pyTelegramBotAPI
 
 # использование
-1. перейдите по ссылке https://id.vk.com/auth?return_auth_hash=3707dd87600c243e08&redirect_uri=https%3A%2F%2Foauth.vk.com%2Fblank.html&redirect_uri_hash=3e5f5ede791cdc00d8&force_hash=1&app_id=2685278&response_type=token&code_challenge=&code_challenge_method=&scope=1040183263&state= и скопируйте токен (он между &token= и &expires_in) в app/config_sample.py, затем переименуйте его в app/config.py 
+1. перейдите по ссылке https://vkhost.github.io/ и скопируйте токен для kate mobile (он между &token= и &expires_in) в app/config_sample.py, затем переименуйте его в app/config.py 
 2. установите куду (>12.1)
 3. pip install -r requirements.txt
 4. python -m spacy download en_core_web_lg
