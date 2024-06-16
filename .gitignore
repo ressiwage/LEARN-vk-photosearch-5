@@ -5,3 +5,7 @@ __pycache__
 **/vectors/*
 !.gitkeep
 **/config.py
+Lib/
+Scripts/
+pyvenv.cfg
+Include/
